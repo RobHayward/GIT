@@ -1,0 +1,361 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage{listings}
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{GIT}
+\author{Rob Hayward}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Notes from the Github team}
+These are notes taken from the You Tube videos \href{https://www.youtube.com/watch?v=WxMFZncm12s&index=4&list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJrgwB-}{Github and Git foundations: training}
+\begin{itemize}
+\item \lstinline{git diff HEAD} will show all the changes since the last commit. 
+\item \lstinline{git diff --stat} 
+\item \lstinline{git log --oneline} just records the commits
+\item \lstinline{git log --patch} gives an full details of the commits. Can be combined with \lstinline{--oneline}
+\item \lstinline{git rm} will remove the file from the file system.  However, it does not remove the file from history. 
+\item \lstinline{git add -u} will add any deleted files to the staging system
+\item \lstinline{git rm --cached filename} will tell git not to track the filename file any more.  This is useful if a file is tracked that you don't want tracked.  
+\item \lstinline{git mv} will move files and stage.
+\item  \lstinline{git add -A .} will identify all files that have been moved.  The dot tells git to start at the current working directory and move all the way down.
+\item \lstinline{git log -M --follow} tells the log to follow the file across moves. 
+\item \lstinline{git ls-files --others --ignored --exlude-standard} will shows all the files that git is ignoring. 
+\end{itemize}
+Similarity index (which comes at the end of the log) shows how similar a file is before and after a move takes place. The 50\% level if a cut off to determine whether git considers it to be a move or a new file. 
+
+Git ignore will allow files to be ignored.  Details are in the .gitignore file.  It contains the details of the files to be ignored. Ignored directories will also ignore the subdirectories. 
+
+\subsection*{branch}
+When working on a project, new features should be carried out on a branch. The master branch is the main branch.  
+\begin{itemize}
+\item \lstinline{git branch <name>} give the branch a new name. 
+\item \lstinline{git branch -d <name>} to delete the branch.  You will be warned if it has not been merged in. 
+\item \lstinline{git branch -D <name>} will not give the warning. 
+\item \lstinline{git checkout <name>} will switch to a new branch. When you switch branches, any work in the staging area of the commit area will come across. Cannot switch to a new branch if any of the files in the staging area or working directory would be overwritten.  
+\end{itemize}
+Files may appear to disappear and reappear as you change branches.  These files will remain in their respective branches. 
+
+\subsection{checkout}
+Used for changing branches. 
+\begin{itemize}
+\item \lstinline{git branch} will tell you what branch you are on.
+\item \lstinline{git status} also states the name of the branch
+\item \lstinline{git checkout <commit ref>} will re-write the working tree from that commit. This is a 'detatched HEAD'. This is a picture of what the working directory looked like at that time. Make sure you checkout back to a branch. 
+\item To discard edits, \lstinline{git checkout --<filename>} will wipe that files contents from the last commit. 
+\item \lstinline{git checkout -b <newbranchname>} will create the branch and check out to it.
+\end{itemize}
+
+\subsection{merge}
+This will bring branches and multiple lines of history together. 
+\begin{itemize}
+\item \lstinline{git merge} will being the history of two or more branches together. 
+\item Move to the branch that you want to merge to and \lstinline{git merge <branchfilename>} 
+\item To resolve a conflict, find the file from the message or find it from \lstinline{git status}. Open file with texteditor and find the conflict. 
+\item \verbatim{<<<<}HEAD shows the file in the branch that is currently checked out to.
+\item ======== is the divide with the branch that is being merged in
+\item \verbatim{>>>>>>} <nameofbranchthatisbeingmerged>  The end of the conflict. 
+\item Remove the conflict, run status, stage the file, commit the file.
+\item \lstinline{git merge --abort} if you do not want to deal wth the conflict. Thsi will clean up the commit and staging area. 
+\item Remove the branch after the merge. 
+\end{itemize}
+
+
+
+\section{Other items of interest}
+The \lstinline{git stash} command will save all the changes that have been made on the local directory and will update the working directory to match the head.
+\lstinline{git show} will show what has been saved. 
+\section{Learn Git}
+This  is a walk through \href{http://try.github.io}{Try Git}.  
+From the required directory, 
+\begin{lstlisting}
+git init
+\end{lstlisting}
+
+This will initialise a git repository. This means creating an empty repository in git.  This is a hidden directory where git operates. 
+
+\begin{lstlisting}
+git status
+\end{lstlisting}
+
+Will tell us the current state of the project. 
+
+\begin{lstlisting}
+git add octocat.txt 
+\end{lstlisting}
+
+Will tell git to start tracking the changes in the file octocat.txt.  It will send the file to the staging area. 
+
+There are a number of different levels: 
+\begin{enumerate}
+\item staged:  files are ready to be commited
+\item unstaged: files with changes that have not been prepared to be commited
+\item untracked: files that are not yet tracked by git
+\item deleted:  files that have been deleted and waiting to be removed from git
+\end{enumerate}
+
+ \begin{lstlisting}
+git status 
+\end{lstlisting}
+ Will show the changes that are now ready to be commited.  The files listed are in the staging area. 
+
+\begin{lstlisting}
+git commit -m "Add cute octocat story" 
+\end{lstlisting}
+
+This will commit the file and add the comment. 
+
+Wildcards * can be used.  For example 
+\begin{lstlisting}
+git add '*.txt' 
+\end{lstlisting}
+Quotes are important.  This will also take files from the root directory as well as the new directory.  All the text files are added to the staging area. Now commit
+\begin{lstlisting}
+git commit -m "Add all the octocat files" 
+\end{lstlisting}
+
+Use 
+\begin{lstlisting}
+git log --summary 
+\end{lstlisting}
+to see more information on each commit.  This includes information on when files are added and deleted. 
+
+It is possible to add to the existing commit if there is some mistake and there is a small ammendment. 
+
+\begin{lstlisting}
+git commit --amend 
+\end{lstlisting}
+
+This is a good way of keeping changes that are related to each other together in one place. 
+
+\subsection{Remote server}
+An empty GitHub repository has been created.  To push the local repo to the GitHub server a remote repository is added.  This command takes the remote name and the repository URL.  
+
+\begin{lstlisting}
+git remote add origin https://github.com/try-git/try_git.git 
+\end{lstlisting}
+
+The push command tells Git where to put the commit when it is ready. Now the local changes are pushed to the \textbf{origin} repo on GitHub.  The name of the remote is \textbf{origin} and the default local branch name is \textbf{master}.  The \textbf{-u} item tells Git to remember the parameters so that the next time we can simply run \textbf{git push} and Git will know what to do. 
+
+\begin{lstlisting}
+git push -u origin master 
+\end{lstlisting}
+
+ 
+The main remote is usually called \textbf{origin}
+
+To check for changes on the GITHub repository and pull down any changes run
+
+\begin{lstlisting}
+git pull origin master   
+\end{lstlisting}
+
+Sometimes when you go to pull you may have changes you don't want to commit just yet.  One option is to \emph{stash} the changes.  Use the command 
+
+\begin{lstlisting}
+git stash 
+\end{lstlisting}
+to stash the changes and 
+\begin{lstlisting}
+git stash apply  
+\end{lstlisting}
+to reapply the changes after the pull.
+
+\subsection{changes}
+
+If there are changes since the last commit, these can be identified with 'git diff' command. 
+\begin{lstlisting}
+git  diff HEAD
+\end{lstlisting}
+
+In this case, we are looking for the difference since the last commit. This is identified with the HEAD command. 
+
+The head is the pointer that holds your position within all the different commits.  By default, HEAD points to your most recent commit, so it can be used as a quick way to reference that commit without having to look a the SHA.  
+
+The diff function can also be used to look at differences within files that have already been staged.  Remember that staged files are files that we have told git are ready to be committed. 
+
+it is a good idea to keep related changes together in separate commits.  Using 'git diff' gives you a good overview of the changes that you have made and lets you add files or directories one at a time and commit them separately.
+
+\begin{lstlisting}
+git  diff --staged
+\end{lstlisting}
+The --staged option will let you see changes that you just staged.  
+
+You can also type git add .. The dot represents the current directory, so everything in it, and everything beneath it gets added.
+
+\subsection{Unstage}
+Files can be unstaged by using the 'reset' function.  
+
+\begin{lstlisting}
+git reset octofamily/octodog.txt  
+\end{lstlisting}
+Will take octodog.tex out of the staging area.  If you want to go back to how things were before octodog emerged you need to use checkout. For example, 
+\begin{lstlisting}
+git checkout --octocat.tex
+\end{lstlisting}
+will get rid of all changes since the last commit for octocat.tex
+
+The '--' pointer tells git that there are no more options.  
+
+\section{Branching}
+When developers are working on a feature, they often create a copy (a branch) of their code so that they can make separate commits to it.  When this is completed, it can be merged back into the master branch. 
+
+For example, to remove all the octocats, create a branch called 'clean up' for the work. 
+
+\begin{lstlisting}
+git branch clean_up  
+\end{lstlisting}
+
+Branches are what naturally happens when you want to work on multiple features at the same time.  You don't want the master to have feature A half done and feature B half done. 
+
+\begin{lstlisting}
+git branch  
+\end{lstlisting}
+will show two branches:  master and clean up.  Switch can be made to new branch
+\begin{lstlisting}
+git checkout clean_up  
+\end{lstlisting}
+
+\begin{lstlisting}
+git checkout -b new_branch 
+\end{lstlisting}
+Can be used to checkout and create a branch at the same time.  
+
+\section{Clean up}
+Now in the clean up branch, it is possible to clean up what has been done. Using the 'git rm' command, the files can be removed from the disk and stage the removal of the files. 
+
+\begin{lstlisting}
+git rm '*.txt' 
+\end{lstlisting}
+The wildcard will get rid of all the files in one go. 
+
+To remove an entire folder, use the recursive option on 'git rm'
+\begin{lstlisting}
+git rm -r folder_of_cats
+\end{lstlisting}
+
+This will recursively remove all folders and files from the given directory.
+
+Now files (and directories) have been removed, they can be committed. 
+
+\begin{lstlisting}
+git commit -m "Remove the cats"  
+\end{lstlisting}
+ It is probably best to run 'git status' first to check the changes that are to be committed.  
+
+If you delete a file without 'git rm', you will have to use 'git rm' to get rid of the files from the working tree.  The -a option on the 'git commit' command will auto remove deleted files with the commit. 
+
+\begin{lstlisting}
+git commit -am "Delete stuff"  
+\end{lstlisting}
+
+Now that the problem of the cats has been resolved, switch back to the master so that the changes in the branch can be copied or merged to the master. 
+
+A pull request can all someone to look through changes before allowing the merger.  There is more \href{https://help.github.com/articles/using-pull-requests}{here on GitHub Help.}
+
+\begin{lstlisting}
+git checkout master  
+\end{lstlisting}
+
+\section{Merge}
+Now the changes from the clean up will be merged with the master branch.  We are already in the master branch.  
+
+\begin{lstlisting}
+git merge clean_up  
+\end{lstlisting}
+
+If there is a conflict, a decision has to be make about which code takes priority.  There is more about this in the \href{http://git-scm.com/book}{Pro Git Book} in the section \href{http://git-scm.com/docs/git-merge#_how_conflicts_are_presented}{about how conflicts are presented.}
+
+To complete, delete the clean up branch using 
+
+\begin{lstlisting}
+git branch -d clean_up 
+\end{lstlisting}
+
+If you want to get rid of a feature the 'git branch -d bad-feature' command may not work if you were deleting something that has not been merged.  In this case, add --force (-f) option or -D which combines -d and -f together into one command. 
+
+\section{Git Push}
+The final step is to push what you have been working on to the remote repository.  
+\begin{lstlisting}
+git push  
+\end{lstlisting}
+ 
+
+\section{More Information}
+\begin{itemize}
+\item \href{http://git-scm.com/docs}{Git Documentation}
+\item  \href{http://git-scm.com/book}{Pro Git Book}
+\item \href{https://help.github.com/}{Git Hub Training}
+\end{itemize}
+
+\section{Notes from Pro Git Book}
+
+\section{Other Notes}
+
+This is an answer to a question about pulling the origin/master when the local is not up to date. 
+
+\begin{lstlisting}
+git fetch --all
+git reset --hard origin/master
+\end{lstlisting}
+
+The first line will fetch everything from the origin and the second will overwrite all local files. 
+\href{http://stackoverflow.com/questions/1125968/force-git-to-overwrite-local-files-on-pull}{Note on Stack Overflow}
+
+\end{document}
