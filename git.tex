@@ -63,6 +63,9 @@
 
 \begin{document}
 \maketitle
+To get git to ignore files and folders
+
+\lstinline{git update-index --assume-unchanged <fileorfolder>}
 \section{Notes from the Github team}
 These are notes taken from the You Tube videos \href{https://www.youtube.com/watch?v=WxMFZncm12s&index=4&list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJrgwB-}{Github and Git foundations: training}
 \begin{itemize}
@@ -108,11 +111,11 @@ This will bring branches and multiple lines of history together.
 \item \lstinline{git merge} will being the history of two or more branches together. 
 \item Move to the branch that you want to merge to and \lstinline{git merge <branchfilename>} 
 \item To resolve a conflict, find the file from the message or find it from \lstinline{git status}. Open file with texteditor and find the conflict. 
-\item \verbatim{<<<<}HEAD shows the file in the branch that is currently checked out to.
+\item \begin{verbatim}<<<<HEAD\end{verbatim{ shows the file in the branch that is currently checked out to.
 \item ======== is the divide with the branch that is being merged in
-\item \verbatim{>>>>>>} <nameofbranchthatisbeingmerged>  The end of the conflict. 
+\item \begin{verbatim}>>>>>>\end{verbatim} <nameofbranchthatisbeingmerged>  The end of the conflict. 
 \item Remove the conflict, run status, stage the file, commit the file.
-\item \lstinline{git merge --abort} if you do not want to deal wth the conflict. Thsi will clean up the commit and staging area. 
+\item \lstinline{git merge --abort} if you do not want to deal wth the conflict. This will clean up the commit and staging area. 
 \item Remove the branch after the merge. 
 \end{itemize}
 
