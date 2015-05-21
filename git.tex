@@ -63,10 +63,71 @@
 
 \begin{document}
 \maketitle
+
+\lstinline{git rm --cached <file>}  to ignore a file that has previously been tracked
+
+\lstinline{xlim(0, 2)}  sets x axis limits
+
+"kyy will past line to k.  
+
+"Kyy will append line to k
+
+"kp will paste that line
+
+:reg shows the registers. 
+
+control shift M - pipe
+
+Contributions to GDP
+$EC387/Economic_Forecast/R/barplot.R$
+
+$Plot on two axes EC387/Commodities/Commodities_Slides.Rnw$
+
+Legend EC224-Materials Money/Money.Rnw
+
+gather plus combine data.frame
+
+ECM04/FinSys/Data.R
+
+Get rid of comma for thousands
+
+ECM04/BOP/TIC.R
+
+\lstinline{git tag submission}  Not sure.  Mark a point. What does submission mean? 
+
+\lstinline{bisectr} - looks at a place half way between now and the beginning for debugging.
+
+\lstinline{git status --porcelain | grep "^?? | cut -c4- >>.gitignore}
+
+\href{http://stackoverflow.com/questions/11542687/git-how-to-ignore-all-present-untracked-files}{Stackoverflow}
+
+To ignore all untracked files and are shown in status
+
 To get git to ignore files and folders
 
 \lstinline{git update-index --assume-unchanged <fileorfolder>}
-\section{Notes from the Github team}
+
+\section{Visualisation}
+The video is \href{https://www.youtube.com/watch?v=sGORc1eOVyE&feature=em-subs_digest}{here}. 
+
+\lstinline{git diff} is comparing the working directory to the staging area. Once a file is staged, the two ares are the same. \lstinline{git diff --cached} will look at the difference between what is staged and the last commit.  
+\section{Merging}
+\href{https://www.youtube.com/watch?v=to6tIdy5rNc&feature=em-subs_digest-wl}{You Tube}
+Three methods:
+\begin{itemize}
+\item Merge
+\item Fast-forward
+\item Re-base
+\end{itemize}
+
+There are a number of branches. There is a master branch that holds the public version of the code, a test branch can do testing before it is made public and a development branch links to feature branches where the new work is done.  Once a new feature is completed, the development branch is fast-forwarded to the feature and the new feature is now in the development branch.  When all features are ready, they can be fast-forwarded to the testing and master branches.  The features can re-based to the development branch at regular intervals to make sure
+that they are up-to-date with the latest features. Before the master is fast-forwarded to the feature branch, the feature must be ahead of master by ensuring that all new commits are included. Therefore, re-base first and then fast-forward to master. 
+
+\lstinline{gitk} opens a graphical user interface of the commit and the branch.  \lstinline{git log --oneline} will give a one line log of what has been done in teh repo. \lstinline{git log --onelne --decorate --graph} will create a graph of the commits and the branches that have been created. 
+
+There is a visualisation tool on git that will let you test commands and it will allow you to visualise what happens to the files as you do that.   For example, the \lstinline{git pull --re-base} command will pull changes that have been made and put your branch changes on top of them. It is generally not good to re-base work that has been done by other people.  It will re-write other people's commits. \href{http://pcottle.github.io/learnGitBranching/}{Learn GIT branching}
+
+\section{Notes from the Git hub team}
 These are notes taken from the You Tube videos \href{https://www.youtube.com/watch?v=WxMFZncm12s&index=4&list=PLg7s6cbtAD15G8lNyoaYDuKZSKyJrgwB-}{Github and Git foundations: training}
 \begin{itemize}
 \item \lstinline{git diff HEAD} will show all the changes since the last commit. 
@@ -75,11 +136,11 @@ These are notes taken from the You Tube videos \href{https://www.youtube.com/wat
 \item \lstinline{git log --patch} gives an full details of the commits. Can be combined with \lstinline{--oneline}
 \item \lstinline{git rm} will remove the file from the file system.  However, it does not remove the file from history. 
 \item \lstinline{git add -u} will add any deleted files to the staging system
-\item \lstinline{git rm --cached filename} will tell git not to track the filename file any more.  This is useful if a file is tracked that you don't want tracked.  
+\item \lstinline{git rm --cached fileename} will tell git not to track the filename file any more.  This is useful if a file is tracked that you don't want tracked.  
 \item \lstinline{git mv} will move files and stage.
 \item  \lstinline{git add -A .} will identify all files that have been moved.  The dot tells git to start at the current working directory and move all the way down.
 \item \lstinline{git log -M --follow} tells the log to follow the file across moves. 
-\item \lstinline{git ls-files --others --ignored --exlude-standard} will shows all the files that git is ignoring. 
+\item \lstinline{git ls-files --others --ignored --exclude-standard} will shows all the files that git is ignoring. 
 \end{itemize}
 Similarity index (which comes at the end of the log) shows how similar a file is before and after a move takes place. The 50\% level if a cut off to determine whether git considers it to be a move or a new file. 
 
@@ -100,7 +161,7 @@ Used for changing branches.
 \begin{itemize}
 \item \lstinline{git branch} will tell you what branch you are on.
 \item \lstinline{git status} also states the name of the branch
-\item \lstinline{git checkout <commit ref>} will re-write the working tree from that commit. This is a 'detatched HEAD'. This is a picture of what the working directory looked like at that time. Make sure you checkout back to a branch. 
+\item \lstinline{git checkout <commit ref>} will re-write the working tree from that commit. This is a 'detached HEAD'. This is a picture of what the working directory looked like at that time. Make sure you checkout back to a branch. 
 \item To discard edits, \lstinline{git checkout --<filename>} will wipe that files contents from the last commit. 
 \item \lstinline{git checkout -b <newbranchname>} will create the branch and check out to it.
 \end{itemize}
@@ -115,7 +176,7 @@ This will bring branches and multiple lines of history together.
 \item ======== is the divide with the branch that is being merged in
 \item \begin{verbatim}>>>>>>\end{verbatim} <nameofbranchthatisbeingmerged>  The end of the conflict. 
 \item Remove the conflict, run status, stage the file, commit the file.
-\item \lstinline{git merge --abort} if you do not want to deal wth the conflict. This will clean up the commit and staging area. 
+\item \lstinline{git merge --abort} if you do not want to deal with the conflict. This will clean up the commit and staging area. 
 \item Remove the branch after the merge. 
 \end{itemize}
 
@@ -147,8 +208,8 @@ Will tell git to start tracking the changes in the file octocat.txt.  It will se
 
 There are a number of different levels: 
 \begin{enumerate}
-\item staged:  files are ready to be commited
-\item unstaged: files with changes that have not been prepared to be commited
+\item staged:  files are ready to be committed
+\item unstaged: files with changes that have not been prepared to be committed
 \item untracked: files that are not yet tracked by git
 \item deleted:  files that have been deleted and waiting to be removed from git
 \end{enumerate}
@@ -156,10 +217,10 @@ There are a number of different levels:
  \begin{lstlisting}
 git status 
 \end{lstlisting}
- Will show the changes that are now ready to be commited.  The files listed are in the staging area. 
+ Will show the changes that are now ready to be commuted.  The files listed are in the staging area. 
 
 \begin{lstlisting}
-git commit -m "Add cute octocat story" 
+git commit -n "Add cute octocat story" 
 \end{lstlisting}
 
 This will commit the file and add the comment. 
@@ -179,7 +240,7 @@ git log --summary
 \end{lstlisting}
 to see more information on each commit.  This includes information on when files are added and deleted. 
 
-It is possible to add to the existing commit if there is some mistake and there is a small ammendment. 
+It is possible to add to the existing commit if there is some mistake and there is a small amendment. 
 
 \begin{lstlisting}
 git commit --amend 
