@@ -51,7 +51,10 @@
 \usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
-
+\usepackage{listings}
+\usepackage[usenames, dvipsnames]{color}
+\definecolor{mygray}{gray}{0.7}
+\lstset{backgroundcolor = \color{mygray}}
 %%% END Article customizations
 
 %%% The "real" document content comes below...
@@ -64,19 +67,18 @@
 \begin{document}
 \maketitle
 
+\section*{Tidy up}
+There is an excellent article about tidying up branches \href{http://railsware.com/blog/2014/08/11/git-housekeeping-tutorial-clean-up-outdated-branches-in-local-and-remote-repositories/}{here}. 
+
+The most important parts are:
+\begin{lstlisting}
+git branch --merged
+git branch --no-merged
+\end{lstlisting}
+
+\section*{Other}
+
 \lstinline{git rm --cached <file>}  to ignore a file that has previously been tracked
-
-\lstinline{xlim(0, 2)}  sets x axis limits
-
-"kyy will past line to k.  
-
-"Kyy will append line to k
-
-"kp will paste that line
-
-:reg shows the registers. 
-
-control shift M - pipe
 
 \lstinline{git tag submission}  Not sure.  Mark a point. What does submission mean? 
 
